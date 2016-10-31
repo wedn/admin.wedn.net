@@ -7,7 +7,13 @@
 <script>
   export default {
     name: 'about',
-    path: '/about'
+    path: '/about',
+
+    data () {
+      this.$http.get('/api/v1/post')
+        .then(res => console.log(res.data))
+      return {}
+    }
   }
 </script>
 

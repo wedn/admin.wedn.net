@@ -12,12 +12,18 @@ const config = {
     source: path.join(__dirname, 'app'),
     static: path.join(__dirname, 'static'),
     output: path.join(__dirname, '../content/'),
-    publicPath: '/assets',
+    publicPath: '/',
     assets: 'assets',
     index: path.join(__dirname, '../content/views/admin.hbs')
   },
   server: {
-    port: process.env.PORT || 1368
+    port: process.env.PORT || 1368,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:2080/',
+        secure: false
+      }
+    }
   },
   sourceMap: { js: true, css: true }
 }
@@ -123,6 +129,7 @@ module.exports = {
   },
   devServer: {
     port: config.server.port,
+    proxy: config.server.proxy,
     outputPath: config.paths.output,
     contentBase: config.paths.output,
     historyApiFallback: true,
