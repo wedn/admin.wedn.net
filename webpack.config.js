@@ -28,6 +28,8 @@ const config = {
   sourceMap: { js: true, css: true }
 }
 
+const isProd = config.env === 'production'
+
 function assetPath (...paths) {
   return path.posix.join(config.paths.assets, ...paths)
 }
@@ -145,8 +147,8 @@ module.exports = {
       'process.env': { NODE_ENV: JSON.stringify(config.env) }
     }),
     new HtmlWebpackPlugin({
-      // title: 'WEDN.NET',
-      filename: config.env === 'production' ? config.paths.index : 'index.html',
+      title: isProd ? '{{ title }}' : 'WEDN.NET',
+      filename: isProd ? config.paths.index : 'index.html',
       template: path.join(config.paths.source, 'index.ejs')
     }),
     new CopyWebpackPlugin([
@@ -156,7 +158,7 @@ module.exports = {
   ]
 }
 
-if (config.env === 'production') {
+if (isProd) {
   module.exports.devtool = 'source-map'
   module.exports.plugins = (module.exports.plugins || []).concat([
     new ExtractTextPlugin(assetPath('css', '[name].css?v=[hash:6]')),
