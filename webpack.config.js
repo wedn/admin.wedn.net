@@ -145,7 +145,7 @@ module.exports = {
       'process.env': { NODE_ENV: JSON.stringify(config.env) }
     }),
     new HtmlWebpackPlugin({
-      title: 'WEDN.NET',
+      // title: 'WEDN.NET',
       filename: config.env === 'production' ? config.paths.index : 'index.html',
       template: path.join(config.paths.source, 'index.ejs')
     }),
